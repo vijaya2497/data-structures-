@@ -1,0 +1,42 @@
+# https://www.geeksforgeeks.org/print-a-given-matrix-in-spiral-form/
+
+
+
+#Given a 2D array, print it in spiral form.
+
+a = [[1, 2, 3, 4],
+     [5, 6, 7, 8],
+     [9, 10, 11, 12],
+    [13, 14, 15, 16]]
+
+Output: 1 2 3 4 8 12 16 15 14 13 9 5 6 7 11 10
+
+l= l1 = len(a)
+m = 0
+n = 0
+
+while m < l and n < l1:
+
+    for i in range(n, l):
+        print(a[m][i], end=" ")
+
+    m += 1
+
+    for j in range(m, l1):
+         print(a[j][l1-1], end=" ")
+    l1 -= 1
+
+
+    if m < l:
+
+        for k in range(l1 - 1, (n - 1), -1):
+            print(a[l - 1][k], end=" ")
+
+        l -= 1
+
+    if n < l1:
+        for s in range(l - 1, m - 1, -1):
+            print(a[s][n], end=" ")
+
+        n += 1
+
