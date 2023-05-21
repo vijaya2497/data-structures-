@@ -1,0 +1,49 @@
+def find_max_sum_subset(array, target):
+    n = len(array)
+
+    # Step 1: Create a 2D table
+    dp = [[False] * (target + 1) for _ in range(n + 1)]
+
+    # Step 2: Initialize base case
+    dp[0][0] = True
+
+    # Step 3: Fill the table
+    for i in range(n):
+        num = array[i]
+        for j in range(target + 1):
+            if dp[i][j]:
+                dp[i + 1][j] = True
+            elif j >= num and dp[i][j - num]:
+                dp[i + 1][j] = True
+
+    # Step 4: Find maximum sum and index
+    max_sum = 0
+    max_index = None
+    for j in range(target, -1, -1):
+        if dp[n][j]:
+            max_sum = j
+            max_index = j
+            break
+
+    # Step 6: Return an empty list if no subset is found
+    if max_index is None:
+        return []
+
+    # Step 7: Reconstruct the subset
+    result = []
+    for i in range(n, 0, -1):
+        if max_index <= 0:
+            break
+        if not dp[i - 1][max_index]:
+            result.append(array[i - 1])
+            max_index -= array[i - 1]
+
+    return result[::-1]  # Reverse the result to obtain the original order
+
+
+# Example usage:
+target = 4
+array = [1, 1, 1, 1, 4, 2, 2]
+output = find_max_sum_subset(array, target)
+print(output)  # [2, 3, 5]
+
